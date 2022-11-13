@@ -1,0 +1,19 @@
+{
+  "name": "electron-quick-start",
+  "version": "1.0.0",
+  "description": "A minimal Electron application",
+  "main": "main.js",
+  "private": true,
+  "scripts": {
+    "start": "shx cp -r ../dist/assets ./assets && electron .",
+    "run-w": "webpack-dev-server",
+    "build": "webpack"
+  },
+  "repository": "https://github.com/electron/electron-quick-start",
+  "author": "GitHub",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "electron": "^21.1.1",
+    "shx": "^0.3.4"
+  }
+}
