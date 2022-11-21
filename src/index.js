@@ -1,30 +1,25 @@
 import p5 from 'p5';
-import Skirmish from './Skirmish';
+import Game from './src/Game';
 
 const containerElement = document.getElementById('p5-container');
 
 const sketch = (p5) => {
   window.p5 = p5
-  let x = 100;
-  let y = 100;
-  let s = new Skirmish()
-  var img = null
+  const game = new Game()
   p5.setup = function() {
     p5.createCanvas(p5.windowWidth, p5.windowHeight);
     p5.noSmooth()
-    img = p5.loadImage('./assets/cultist2.jpeg')
+    game.setup()
   };
 
   p5.draw = function() {
     p5.background(0);
-    p5.fill(255);
-    p5.rect(x, y, 50, 50);
-    s.tick()
-    p5.image(img, 200, 200)
+    game.draw()
   };
 
   p5.windowResized = function() {
     p5.resizeCanvas(p5.windowWidth, p5.windowHeight);
+    game.windowResized()
   }
 };
 
