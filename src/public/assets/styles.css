@@ -1,0 +1,27 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+canvas {
+  cursor: none;
+}
+
+@font-face {
+  font-family: display;
+  src: url(./fonts/display.ttf);
+}
+
+#start-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background-color: black;
+  color: greenyellow;
+  font-size: 3rem;
+  font-family: display;  
+}

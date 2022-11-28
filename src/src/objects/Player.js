@@ -2,7 +2,7 @@ import Solid from "./Solid";
 
 class Player extends Solid {
   constructor(game, position) {
-    super(position, 1, 0.5);
+    super(position, 0.6, 0.5);
     this.game = game;
     this.speed = 0.4;
     this.friction = 2;
@@ -11,18 +11,19 @@ class Player extends Solid {
   }
 
   draw() {
-    if (p5.keyIsDown(p5.LEFT_ARROW)) {
+    const canMove = this.game.popups.length === 0
+    if (canMove && p5.keyIsDown(p5.LEFT_ARROW)) {
       this.velocity.x -= this.speed;
       this.facingRight = false;
     }
-    if (p5.keyIsDown(p5.RIGHT_ARROW)) {
+    if (canMove && p5.keyIsDown(p5.RIGHT_ARROW)) {
       this.velocity.x += this.speed;
       this.facingRight = true;
     }
-    if (p5.keyIsDown(p5.UP_ARROW)) {
+    if (canMove && p5.keyIsDown(p5.UP_ARROW)) {
       this.velocity.y -= this.speed;
     }
-    if (p5.keyIsDown(p5.DOWN_ARROW)) {
+    if (canMove && p5.keyIsDown(p5.DOWN_ARROW)) {
       this.velocity.y += this.speed;
     }
 
@@ -40,10 +41,6 @@ class Player extends Solid {
 
     this.position.x += this.velocity.x;
     this.position.y += this.velocity.y;
-    const invVel = {
-      x: this.velocity.x * -1,
-      y: this.velocity.y * -1,
-    };
     this.canJump = false;
     for (const obj of this.game.objects) {
       if (this.collides(obj)) {
@@ -56,12 +53,15 @@ class Player extends Solid {
       }
     }
 
+    if (this.position.x > 15 || this.position.x < 1 || this.position.y > 15 || this.position.y < 1) {
+      this.game.playerDeath()
+    }
+
     p5.push();
     p5.translate(this.position.x * _tileSize, this.position.y * _tileSize);
     p5.image(
       this.game.spriteSheet,
-      0,
-      _tileSize*-0.5,
+      -0.2*_tileSize, _tileSize*-0.5,
       _tileSize,
       _tileSize,
       this.facingRight ? 0 : _tileSize,

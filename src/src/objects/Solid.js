@@ -31,10 +31,10 @@ class Solid {
 
   collides(otherSolid) {
     return (
-      this.position.x + this.width > otherSolid.position.x &&
-      this.position.x < otherSolid.position.x + otherSolid.width &&
-      this.position.y + this.height > otherSolid.position.y &&
-      this.position.y < otherSolid.position.y + otherSolid.height
+      this.position.x + this.width >= otherSolid.position.x &&
+      this.position.x <= otherSolid.position.x + otherSolid.width &&
+      this.position.y + this.height >= otherSolid.position.y &&
+      this.position.y <= otherSolid.position.y + otherSolid.height
     );
   }
 
@@ -47,7 +47,7 @@ class Solid {
     const dy = (oMidY - tMidY) / (otherSolid.height / 2);
     const absDx = Math.abs(dx);
     const absDy = Math.abs(dy);
-    if (Math.abs(absDx - absDy) < 0.1) {
+    if (Math.abs(absDx - absDy) < 0.01) {
       if (dx < 0) {
         // If the player is approaching from positive X
         this.position.x = otherSolid.position.x + otherSolid.width;
