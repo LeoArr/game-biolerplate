@@ -5,7 +5,7 @@
   "main": "main.js",
   "private": true,
   "scripts": {
-    "start": "shx cp -r ../dist/assets ./assets && electron .",
+    "start": "shx cp -r ../dist/assets/ ./ && electron .",
     "run-w": "webpack-dev-server",
     "build": "webpack"
   },
