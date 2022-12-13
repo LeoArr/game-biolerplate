@@ -12,15 +12,24 @@ const sketch = (p5) => {
     game.setup()
   };
 
-  p5.draw = function() {
+  p5.draw = function(dt) {
     p5.background(0);
-    game.draw()
+    game.draw(dt)
   };
 
   p5.windowResized = function() {
     p5.resizeCanvas(p5.windowWidth, p5.windowHeight);
     game.windowResized()
   }
+
+  p5.mousePressed = function() {
+    game.mousePressed(p5.mouseX, p5.mouseY)
+  }
+
+  p5.keyPressed = function() {
+    game.keyPressed()
+  }
+  
 };
 
 new p5(sketch, containerElement);
