@@ -18,18 +18,32 @@ export const COORD_TO_SCREEN_MATRIX = [
   [0, -TILE_HEIGHT, 0],
 ];
 
-// export const COORD_TO_SCREEN_MATRIX_INVERSE = [
-//   [0.0625, -0.0625],
-//   [0.125, 0.125]
-// ]
+export const COORD_TO_SCREEN_MATRIX_INVERSE = [
+  [0.0625, -0.0625],
+  [0.125, 0.125]
+]
 
-export const coordToScreen = (position, camera) => {
+export const coordToScreen = (position, camera, p5) => {
   const [[x_screen, y_screen]] = multiplyMatrices(
     [[position.x, position.y, position.z]],
     COORD_TO_SCREEN_MATRIX
   );
   return {
-    x: x_screen - camera.x,
-    y: y_screen - camera.y
+    x: x_screen - camera.x + p5.width/2,
+    y: y_screen - camera.y + p5.height/2
   }
 };
+
+export const screenToCoord = (position, camera, p5) => {
+  const [[x_coord, y_coord]] = multiplyMatrices(
+    [[
+      (position.x - p5.width/2)/camera.zoom + camera.x,
+      (position.y - p5.height/2)/camera.zoom + camera.y + TILE_HEIGHT
+    ]],
+    COORD_TO_SCREEN_MATRIX_INVERSE
+  );
+  return {
+    x: Math.floor(x_coord),
+    y: Math.floor(y_coord)
+  }
+}

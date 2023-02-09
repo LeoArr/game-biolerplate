@@ -27,17 +27,11 @@ const sketch = (p5) => {
       p5.windowWidth,
       p5.windowHeight,
     );
-    gameState.mouseMapCanvas = p5.createGraphics(
-      p5.windowWidth,
-      p5.windowHeight,
-    );
-    gameState.mouseMapCanvas.imageMode(p5.CENTER)
-    gameState.mouseMapCanvas.noSmooth()
-    gameState.mouseMapCanvas.pixelDensity(1)
     p5.imageMode(p5.CENTER);
     p5.noSmooth();
     p5.pixelDensity(1);
-    // gameState.socket = connect()
+    p5.frameRate(30)
+    gameState.socket = connect()
     game = new Game(p5, gameState);
     game.setup();
   };
@@ -48,9 +42,9 @@ const sketch = (p5) => {
     }
   }
 
-  p5.mouseMoved = function () {
+  p5.keyPressed = function () {
     if (game) {
-      game.mouseMoved()
+      game.keyPressed(p5.keyCode)
     }
   }
 
@@ -61,6 +55,12 @@ const sketch = (p5) => {
       game.update();
     }
   };
+
+  p5.mouseWheel = function (event) {
+    if (game) {
+      game.mouseWheel(event)
+    }
+  }
 
   p5.windowResized = function () {
     p5.resizeCanvas(p5.windowWidth, p5.windowHeight);
